@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreDatabaseModelStoreContainer" CdmEntityContainer="StoreDatabaseEntities">
+    <EntitySetMapping Name="Clothes">
+      <EntityTypeMapping TypeName="StoreDatabaseModel.Cloth">
+        <MappingFragment StoreEntitySet="Clothes">
+          <ScalarProperty Name="CId" ColumnName="CId" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Condition" ColumnName="Condition" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sellers">
+      <EntityTypeMapping TypeName="StoreDatabaseModel.Seller">
+        <MappingFragment StoreEntitySet="Seller">
+          <ScalarProperty Name="SId" ColumnName="SId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SellerProducts">
+      <EntityTypeMapping TypeName="StoreDatabaseModel.SellerProduct">
+        <MappingFragment StoreEntitySet="SellerProduct">
+          <ScalarProperty Name="SPID" ColumnName="SPID" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="CID" ColumnName="CID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
