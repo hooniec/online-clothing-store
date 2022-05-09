@@ -1,17 +1,28 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Clothes Online";
 }
-
-<h2>Home Page</h2>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Home Page</title>
 </head>
 <body>
-    <h3> Guaranteed Clothes </h3>
+    @*Product photos*@
     <div>
+        <div class="row text-center mb-5">
+            <img src="~/Images/homepageMain.jpg" class="img-fluid" />
+        </div>
+        <div class="row text-center">
+            <div class="col-md-8 mb-5">
+                <img src="~/Images/homepageT.jpg" class="img-fluid" />
+            </div>
+            <div class="col-md-4 mb-5">
+                <img src="~/Images/homepageJacket.jpg" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+
+    @*<div>
         @Html.ActionLink("List of Sellers", "Index", "Sellers") <br />
         @Html.ActionLink("List of Clothes", "Index", "Clothes") <br />
-    </div>
+    </div>*@
 </body>
