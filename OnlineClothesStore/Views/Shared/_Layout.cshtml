@@ -43,18 +43,34 @@
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold text-danger" href="#">SALE</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-user-tie fa-xl"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Register Seller</a>
-                            <a class="dropdown-item" href="#">Update Seller</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Buyer</a>
-                        </div>
-                    </li>
+                    @if (Session["SellerId"] != null)
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link font-weight-bold"> | <span class="mx-2"> Welcome @Session["UserName"]!</span></span>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-user-tie fa-xl"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="~/Clothes/Create">Register Clothes</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="~/Sellers/Logout">Logout</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle mx-2" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-user-tie fa-xl"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="~/Sellers/Login">Seller Login</a>
+                                <a class="dropdown-item" href="~/Sellers/Create">Seller Registration</a>
+                            </div>
+                        </li>
+                    }
                 </ul>
                 @*Search bar*@
                 <form class="d-flex">
@@ -68,7 +84,7 @@
         @RenderBody()
     </div>
     @*Footer*@
-    <footer class="text-center text-lg-start bg-light text-muted">
+    <footer class="text-center text-lg-start bg-light text-muted mt-5">
         @*Social Media Section*@
         <section class="d-flex justify-content-center p-3 border-bottom">
             <div class="me-3 d-none d-lg-block">

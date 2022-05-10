@@ -17,8 +17,48 @@ namespace OnlineClothesStore.Controllers
         // GET: Sellers
         public ActionResult Index()
         {
-            return View(db.Sellers.ToList());
+            return View();
         }
+
+        // GET: Login
+        // The login form is loaded in this action
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: Login
+        // The Login form is posted to this method
+        [HttpPost]
+        public ActionResult Login(Seller seller)
+        {
+            if (ModelState.IsValid)
+            {
+                var obj = db.Sellers.Where(s => s.Username.Equals(seller.Username) && s.Password.Equals(seller.Password)).FirstOrDefault();
+                if (obj != null)
+                {
+                    // Put Seller's details into Session 
+                    Session["SellerId"] = obj.SId.ToString();
+                    Session["UserName"] = obj.Username.ToString();
+                    Session["LoginStatus"] = 1;
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View("LoginFail");
+        }
+
+        public ActionResult Logout()
+        {
+            Session["SellerId"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET:Sellers/RequestFail
+        public ActionResult LoginFail()
+        {
+            return View();
+        }
+
 
         // GET: Sellers/Details/5
         public ActionResult Details(int? id)
@@ -52,7 +92,7 @@ namespace OnlineClothesStore.Controllers
             {
                 db.Sellers.Add(seller);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
 
             return View(seller);
