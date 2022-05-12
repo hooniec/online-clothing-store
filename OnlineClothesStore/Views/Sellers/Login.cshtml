@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineClothesStore.Models.Seller>
+﻿@model OnlineClothesStore.Models.Seller
 
 @{
     ViewBag.Title = "Login";
@@ -14,41 +14,50 @@
                 <div class="card">
                     <div class="card-header">Login</div>
                     <div class="card-body">
-                        <form action="~/Sellers/Login" method="POST">
+                        @using (Html.BeginForm("Login", "Sellers", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.SId)
+
                             <div class="form-group row">
-                                <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+                                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "col-md-4 col-form-label text-md-right" })
                                 <div class="col-md-6">
-                                    <input type="text" id="username" class="form-control" name="username" required autofocus>
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-md-4 col-form-label text-md-right" })
                                 <div class="col-md-6">
-                                    <input type="password" id="password" class="form-control" name="password" required>
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">
                                     <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="remember"> Remember Me
-                                        </label>
+                                        @Html.CheckBox("rememberMe", false)
+                                        @Html.Label("rememberMe", "Remember Me")
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-secondary">
-                                    Login
-                                </button>
-                                <a href="~/Sellers/Create" class="btn btn-link">
-                                    Don't have an account?
-                                </a>
+                                <button type="submit" class="btn btn-secondary mr-3">Login</button>
+                                @Html.ActionLink("Don't have an account?", "Create", "Sellers")
                             </div>
-                        </form>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.6.2.js"></script>
+
+
 

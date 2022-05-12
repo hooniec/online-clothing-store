@@ -32,19 +32,22 @@ namespace OnlineClothesStore.Controllers
         [HttpPost]
         public ActionResult Login(Seller seller)
         {
-            if (ModelState.IsValid)
+            // Validate Username and Password of Seller model for login
+            if (ModelState.IsValidField("Username") && ModelState.IsValidField("Password"))
             {
+                // Look seller's details up that mathes the inputs
                 var obj = db.Sellers.Where(s => s.Username.Equals(seller.Username) && s.Password.Equals(seller.Password)).FirstOrDefault();
                 if (obj != null)
                 {
                     // Put Seller's details into Session 
                     Session["SellerId"] = obj.SId.ToString();
                     Session["UserName"] = obj.Username.ToString();
-                    Session["LoginStatus"] = 1;
-                    return RedirectToAction("Index", "Home");
+                    // Redirect to home page with an alert message
+                    return Content(string.Format("<script language='javascript' type='text/javascript'>alert('Logged in successfully as {0}!');window.location.href='/';</script>", seller.Username));
                 }
+                return View("LoginFail");
             }
-            return View("LoginFail");
+            return View(seller);
         }
 
         public ActionResult Logout()
@@ -85,16 +88,14 @@ namespace OnlineClothesStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SId,Name,Address,Phone,Email,Username,Password")] Seller seller)
         {
             if (ModelState.IsValid)
             {
-                db.Sellers.Add(seller);
-                db.SaveChanges();
-                return RedirectToAction("Login");
+                //db.Sellers.Add(seller);
+                //db.SaveChanges();
+                return Content("<script language='javascript' type='text/javascript'>alert('Congratulations, your account has been successfully created.');window.location.href='/Sellers/Login';</script>");
             }
-
             return View(seller);
         }
 
@@ -122,9 +123,21 @@ namespace OnlineClothesStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(seller).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                // Validate Username and Password of Seller model for updating profile
+                if (ModelState.IsValidField("Username") && ModelState.IsValidField("Password"))
+                {
+                    // Look seller's details up that mathes the inputs
+                    var obj = db.Sellers.AsNoTracking().Where(s => s.Username.Equals(seller.Username) && s.Password.Equals(seller.Password)).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        // Update seller's details
+                        db.Entry(seller).State = EntityState.Modified;
+                        db.SaveChanges();
+                        // Acknowledgement message is sent
+                        return Content(string.Format("<script language='javascript' type='text/javascript'>alert('Your profile is updated successfully');window.location.href='/Sellers/Edit/{0}';</script>", seller.SId));
+                    }
+                    return View("AuthenticationFail");
+                }
             }
             return View(seller);
         }
