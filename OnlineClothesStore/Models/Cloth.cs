@@ -11,7 +11,8 @@ namespace OnlineClothesStore.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Cloth
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,13 +22,34 @@ namespace OnlineClothesStore.Models
         }
     
         public int CId { get; set; }
+
+        [Required(ErrorMessage = "Please select product's gender")]
         public string Gender { get; set; }
+
+        [Required(ErrorMessage = "Please select product's category")]
         public string Category { get; set; }
+
+        [Required(ErrorMessage = "Please select product's condition")]
         public string Condition { get; set; }
+
+        [Required(ErrorMessage = "Please enter product's color")]
+        [StringLength(15, ErrorMessage = "Please do not enter more than 15 characters")]
         public string Color { get; set; }
+
+        [Required(ErrorMessage = "Please select product's size")]
         public string Size { get; set; }
+
+        [Required(ErrorMessage = "Please enter product's brand")]
+        [StringLength(30, ErrorMessage = "Please do not enter more than 30 characters")]
         public string Brand { get; set; }
+
+        [Required(ErrorMessage = "Please enter a location of product")]
+        [StringLength(100, ErrorMessage = "Please do not enter more than 100 characters")]
         public string Location { get; set; }
+
+        [Required(ErrorMessage = "Please enter product's price")]
+        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Price must be in the format dollars.cents")]
+        [Range(0, 9999999999.99, ErrorMessage = "Out of Range - Please check the price again")]
         public Nullable<decimal> Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
