@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Clothes">
       <EntityTypeMapping TypeName="StoreDatabaseModel.Cloth">
         <MappingFragment StoreEntitySet="Clothes">
+          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="CId" ColumnName="CId" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="Category" ColumnName="Category" />
@@ -26,15 +27,6 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SellerProducts">
-      <EntityTypeMapping TypeName="StoreDatabaseModel.SellerProduct">
-        <MappingFragment StoreEntitySet="SellerProduct">
-          <ScalarProperty Name="SPID" ColumnName="SPID" />
-          <ScalarProperty Name="SID" ColumnName="SID" />
-          <ScalarProperty Name="CID" ColumnName="CID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

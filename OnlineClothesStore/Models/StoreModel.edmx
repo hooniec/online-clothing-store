@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StoreDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StoreDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Clothes">
           <Key>
             <PropertyRef Name="CId" />
           </Key>
           <Property Name="CId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Gender" Type="varchar" MaxLength="5" />
+          <Property Name="Gender" Type="varchar" MaxLength="6" />
           <Property Name="Category" Type="varchar" MaxLength="15" />
           <Property Name="Condition" Type="varchar" MaxLength="5" />
           <Property Name="Color" Type="varchar" MaxLength="15" />
@@ -18,6 +18,7 @@
           <Property Name="Brand" Type="varchar" MaxLength="30" />
           <Property Name="Location" Type="varchar" MaxLength="100" />
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -31,57 +32,11 @@
           <Property Name="Username" Type="varchar" MaxLength="20" />
           <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <EntityType Name="SellerProduct">
-          <Key>
-            <PropertyRef Name="SPID" />
-          </Key>
-          <Property Name="SPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SID" Type="int" Nullable="false" />
-          <Property Name="CID" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__SellerProdu__CID__286302EC">
-          <End Role="Clothes" Type="Self.Clothes" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clothes">
-              <PropertyRef Name="CId" />
-            </Principal>
-            <Dependent Role="SellerProduct">
-              <PropertyRef Name="CID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SellerProdu__SID__276EDEB3">
-          <End Role="Seller" Type="Self.Seller" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Seller">
-              <PropertyRef Name="SId" />
-            </Principal>
-            <Dependent Role="SellerProduct">
-              <PropertyRef Name="SID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="StoreDatabaseModelStoreContainer">
           <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SellerProduct" EntityType="Self.SellerProduct" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__SellerProdu__CID__286302EC" Association="Self.FK__SellerProdu__CID__286302EC">
-            <End Role="Clothes" EntitySet="Clothes" />
-            <End Role="SellerProduct" EntitySet="SellerProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SellerProdu__SID__276EDEB3" Association="Self.FK__SellerProdu__SID__276EDEB3">
-            <End Role="Seller" EntitySet="Seller" />
-            <End Role="SellerProduct" EntitySet="SellerProduct" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StoreDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -90,7 +45,7 @@
             <PropertyRef Name="CId" />
           </Key>
           <Property Name="CId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Gender" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="Category" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Condition" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="Color" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
@@ -98,7 +53,7 @@
           <Property Name="Brand" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="SellerProducts" Relationship="Self.FK__SellerProdu__CID__286302EC" FromRole="Clothes" ToRole="SellerProduct" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -111,59 +66,11 @@
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="SellerProducts" Relationship="Self.FK__SellerProdu__SID__276EDEB3" FromRole="Seller" ToRole="SellerProduct" />
         </EntityType>
-        <EntityType Name="SellerProduct">
-          <Key>
-            <PropertyRef Name="SPID" />
-          </Key>
-          <Property Name="SPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SID" Type="Int32" Nullable="false" />
-          <Property Name="CID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cloth" Relationship="Self.FK__SellerProdu__CID__286302EC" FromRole="SellerProduct" ToRole="Clothes" />
-          <NavigationProperty Name="Seller" Relationship="Self.FK__SellerProdu__SID__276EDEB3" FromRole="SellerProduct" ToRole="Seller" />
-        </EntityType>
-        <Association Name="FK__SellerProdu__CID__286302EC">
-          <End Role="Clothes" Type="Self.Cloth" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clothes">
-              <PropertyRef Name="CId" />
-            </Principal>
-            <Dependent Role="SellerProduct">
-              <PropertyRef Name="CID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SellerProdu__SID__276EDEB3">
-          <End Role="Seller" Type="Self.Seller" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Seller">
-              <PropertyRef Name="SId" />
-            </Principal>
-            <Dependent Role="SellerProduct">
-              <PropertyRef Name="SID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="StoreDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clothes" EntityType="Self.Cloth" />
           <EntitySet Name="Sellers" EntityType="Self.Seller" />
-          <EntitySet Name="SellerProducts" EntityType="Self.SellerProduct" />
-          <AssociationSet Name="FK__SellerProdu__CID__286302EC" Association="Self.FK__SellerProdu__CID__286302EC">
-            <End Role="Clothes" EntitySet="Clothes" />
-            <End Role="SellerProduct" EntitySet="SellerProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SellerProdu__SID__276EDEB3" Association="Self.FK__SellerProdu__SID__276EDEB3">
-            <End Role="Seller" EntitySet="Sellers" />
-            <End Role="SellerProduct" EntitySet="SellerProducts" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -173,6 +80,7 @@
           <EntitySetMapping Name="Clothes">
             <EntityTypeMapping TypeName="StoreDatabaseModel.Cloth">
               <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="CId" ColumnName="CId" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
@@ -195,15 +103,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SellerProducts">
-            <EntityTypeMapping TypeName="StoreDatabaseModel.SellerProduct">
-              <MappingFragment StoreEntitySet="SellerProduct">
-                <ScalarProperty Name="SPID" ColumnName="SPID" />
-                <ScalarProperty Name="SID" ColumnName="SID" />
-                <ScalarProperty Name="CID" ColumnName="CID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

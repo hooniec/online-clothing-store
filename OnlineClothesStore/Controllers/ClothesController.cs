@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -45,14 +46,25 @@ namespace OnlineClothesStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CId,Gender,Category,Condition,Color,Size,Brand,Location,Price")] Cloth cloth)
+        public ActionResult Create([Bind(Include = "CId,Gender,Category,Condition,Color,Size,Brand,Location,Price,Image")] Cloth cloth, HttpPostedFileBase file)
         {
+            
             if (ModelState.IsValid)
             {
+                var FileName = string.Format("{0}.{1}", Guid.NewGuid(), file.ContentType);
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Images"), FileName);
+                    file.SaveAs(path);
+                }
+
+                db.Clothes.Image = FileName;
+                db.Entry(db.Clothes).State = EntityState.Modified;
+
                 db.Clothes.Add(cloth);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Content("<script language='javascript' type='text/javascript'>alert('Your product has been successfully added.');window.location.href='/Clothes/Index';</script>");
             }
 
             return View(cloth);

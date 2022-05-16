@@ -15,14 +15,6 @@ namespace OnlineClothesStore.Models
 
     public partial class Cloth
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cloth()
-        {
-            this.SellerProducts = new HashSet<SellerProduct>();
-        }
-    
-        public int CId { get; set; }
-
         [Required(ErrorMessage = "Please select product's gender")]
         public string Gender { get; set; }
 
@@ -51,8 +43,11 @@ namespace OnlineClothesStore.Models
         [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Price must be in the format dollars.cents")]
         [Range(0, 9999999999.99, ErrorMessage = "Out of Range - Please check the price again")]
         public Nullable<decimal> Price { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SellerProduct> SellerProducts { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name = "Product Image")]
+        [Required(ErrorMessage = "Please choose file to upload.")]
+        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$", ErrorMessage = "Only Image files allowed.")]
+        public string Image { get; set; }
     }
 }

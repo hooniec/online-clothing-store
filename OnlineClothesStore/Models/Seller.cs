@@ -15,12 +15,6 @@ namespace OnlineClothesStore.Models
 
     public partial class Seller
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Seller()
-        {
-            this.SellerProducts = new HashSet<SellerProduct>();
-        }
-    
         public int SId { get; set; }
 
         [Required(ErrorMessage = "Please enter your name")]
@@ -48,8 +42,5 @@ namespace OnlineClothesStore.Models
 
         [Required(ErrorMessage = "Please enter your password")]
         public string Password { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SellerProduct> SellerProducts { get; set; }
     }
 }

@@ -6,11 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="ead02a0f74bd474a90bfb350c3c3d1ba" Name="Diagram1">
         <EntityTypeShape EntityType="StoreDatabaseModel.Cloth" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="StoreDatabaseModel.Seller" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="StoreDatabaseModel.SellerProduct" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <AssociationConnector Association="StoreDatabaseModel.FK__SellerProdu__CID__286302EC" ManuallyRouted="false" />
-        <AssociationConnector Association="StoreDatabaseModel.FK__SellerProdu__SID__276EDEB3" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="StoreDatabaseModel.Seller" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

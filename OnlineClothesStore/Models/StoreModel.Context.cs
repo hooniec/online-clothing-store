@@ -27,6 +27,5 @@ namespace OnlineClothesStore.Models
     
         public virtual DbSet<Cloth> Clothes { get; set; }
         public virtual DbSet<Seller> Sellers { get; set; }
-        public virtual DbSet<SellerProduct> SellerProducts { get; set; }
     }
 }

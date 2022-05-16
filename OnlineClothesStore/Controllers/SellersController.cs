@@ -53,7 +53,7 @@ namespace OnlineClothesStore.Controllers
         public ActionResult Logout()
         {
             Session["SellerId"] = null;
-            return RedirectToAction("Index", "Home");
+            return Content("<script language='javascript' type='text/javascript'>alert('You have successfully logged out.');window.location.href='/';</script>");
         }
 
         // GET:Sellers/RequestFail

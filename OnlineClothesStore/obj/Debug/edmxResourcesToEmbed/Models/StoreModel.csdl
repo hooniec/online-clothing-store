@@ -5,7 +5,7 @@
       <PropertyRef Name="CId" />
     </Key>
     <Property Name="CId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Gender" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
     <Property Name="Category" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="Condition" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="Color" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
@@ -13,7 +13,7 @@
     <Property Name="Brand" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
-    <NavigationProperty Name="SellerProducts" Relationship="Self.FK__SellerProdu__CID__286302EC" FromRole="Clothes" ToRole="SellerProduct" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Seller">
     <Key>
@@ -26,57 +26,9 @@
     <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="SellerProducts" Relationship="Self.FK__SellerProdu__SID__276EDEB3" FromRole="Seller" ToRole="SellerProduct" />
   </EntityType>
-  <EntityType Name="SellerProduct">
-    <Key>
-      <PropertyRef Name="SPID" />
-    </Key>
-    <Property Name="SPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SID" Type="Int32" Nullable="false" />
-    <Property Name="CID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Cloth" Relationship="Self.FK__SellerProdu__CID__286302EC" FromRole="SellerProduct" ToRole="Clothes" />
-    <NavigationProperty Name="Seller" Relationship="Self.FK__SellerProdu__SID__276EDEB3" FromRole="SellerProduct" ToRole="Seller" />
-  </EntityType>
-  <Association Name="FK__SellerProdu__CID__286302EC">
-    <End Role="Clothes" Type="Self.Cloth" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clothes">
-        <PropertyRef Name="CId" />
-      </Principal>
-      <Dependent Role="SellerProduct">
-        <PropertyRef Name="CID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__SellerProdu__SID__276EDEB3">
-    <End Role="Seller" Type="Self.Seller" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Seller">
-        <PropertyRef Name="SId" />
-      </Principal>
-      <Dependent Role="SellerProduct">
-        <PropertyRef Name="SID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="StoreDatabaseEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Clothes" EntityType="Self.Cloth" />
     <EntitySet Name="Sellers" EntityType="Self.Seller" />
-    <EntitySet Name="SellerProducts" EntityType="Self.SellerProduct" />
-    <AssociationSet Name="FK__SellerProdu__CID__286302EC" Association="Self.FK__SellerProdu__CID__286302EC">
-      <End Role="Clothes" EntitySet="Clothes" />
-      <End Role="SellerProduct" EntitySet="SellerProducts" />
-    </AssociationSet>
-    <AssociationSet Name="FK__SellerProdu__SID__276EDEB3" Association="Self.FK__SellerProdu__SID__276EDEB3">
-      <End Role="Seller" EntitySet="Sellers" />
-      <End Role="SellerProduct" EntitySet="SellerProducts" />
-    </AssociationSet>
   </EntityContainer>
 </Schema>

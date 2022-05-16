@@ -130,9 +130,6 @@
     <Compile Include="Models\Seller.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SellerProduct.cs">
-      <DependentUpon>StoreModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\StoreModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

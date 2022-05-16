@@ -5,7 +5,7 @@
       <PropertyRef Name="CId" />
     </Key>
     <Property Name="CId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Gender" Type="varchar" MaxLength="5" />
+    <Property Name="Gender" Type="varchar" MaxLength="6" />
     <Property Name="Category" Type="varchar" MaxLength="15" />
     <Property Name="Condition" Type="varchar" MaxLength="5" />
     <Property Name="Color" Type="varchar" MaxLength="15" />
@@ -13,6 +13,7 @@
     <Property Name="Brand" Type="varchar" MaxLength="30" />
     <Property Name="Location" Type="varchar" MaxLength="100" />
     <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Image" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Seller">
     <Key>
@@ -26,53 +27,8 @@
     <Property Name="Username" Type="varchar" MaxLength="20" />
     <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
-  <EntityType Name="SellerProduct">
-    <Key>
-      <PropertyRef Name="SPID" />
-    </Key>
-    <Property Name="SPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SID" Type="int" Nullable="false" />
-    <Property Name="CID" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="FK__SellerProdu__CID__286302EC">
-    <End Role="Clothes" Type="Self.Clothes" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clothes">
-        <PropertyRef Name="CId" />
-      </Principal>
-      <Dependent Role="SellerProduct">
-        <PropertyRef Name="CID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__SellerProdu__SID__276EDEB3">
-    <End Role="Seller" Type="Self.Seller" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="SellerProduct" Type="Self.SellerProduct" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Seller">
-        <PropertyRef Name="SId" />
-      </Principal>
-      <Dependent Role="SellerProduct">
-        <PropertyRef Name="SID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="StoreDatabaseModelStoreContainer">
     <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SellerProduct" EntityType="Self.SellerProduct" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__SellerProdu__CID__286302EC" Association="Self.FK__SellerProdu__CID__286302EC">
-      <End Role="Clothes" EntitySet="Clothes" />
-      <End Role="SellerProduct" EntitySet="SellerProduct" />
-    </AssociationSet>
-    <AssociationSet Name="FK__SellerProdu__SID__276EDEB3" Association="Self.FK__SellerProdu__SID__276EDEB3">
-      <End Role="Seller" EntitySet="Seller" />
-      <End Role="SellerProduct" EntitySet="SellerProduct" />
-    </AssociationSet>
   </EntityContainer>
 </Schema>
