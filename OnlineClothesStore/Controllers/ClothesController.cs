@@ -51,16 +51,20 @@ namespace OnlineClothesStore.Controllers
             
             if (ModelState.IsValid)
             {
-                var FileName = string.Format("{0}.{1}", Guid.NewGuid(), file.ContentType);
-
-                if (file != null && file.ContentLength > 0)
+                if (HttpContext.Request.Files.AllKeys.Any())
                 {
-                    var path = Path.Combine(Server.MapPath("~/Images"), FileName);
-                    file.SaveAs(path);
-                }
+                    // Get the uploaded image from the Files collection
+                    var httpPostedFile = HttpContext.Request.Files[0];
 
-                db.Clothes.Image = FileName;
-                db.Entry(db.Clothes).State = EntityState.Modified;
+                    if (httpPostedFile != null)
+                    { 
+                        // Get the complete file path
+                        var fileSavePath = (HttpContext.Server.MapPath("~/Images") + httpPostedFile.FileName.Substring(httpPostedFile.FileName.LastIndexOf(@"\")));
+
+                        // Save the uploaded file to "Images" folder
+                        httpPostedFile.SaveAs(fileSavePath);
+                    }
+                }
 
                 db.Clothes.Add(cloth);
                 db.SaveChanges();

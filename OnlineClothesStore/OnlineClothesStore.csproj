@@ -164,7 +164,6 @@
     <Content Include="Views\Sellers\Login.cshtml" />
     <Content Include="Views\Clothes\Create.cshtml" />
     <Content Include="Views\Clothes\Details.cshtml" />
-    <Content Include="Views\Clothes\Edit.cshtml" />
     <Content Include="Views\Clothes\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sellers\LoginFail.cshtml" />

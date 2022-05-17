@@ -15,6 +15,8 @@ namespace OnlineClothesStore.Models
 
     public partial class Cloth
     {
+        public int CId { get; set; }
+
         [Required(ErrorMessage = "Please select product's gender")]
         public string Gender { get; set; }
 
