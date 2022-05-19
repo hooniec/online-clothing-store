@@ -19,8 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        @*<a class="nav-link font-weight-bold text-uppercase" href="~/Clothes/Search?New">New</a>*@
-                        @Html.ActionLink("New", "Search", "Clothes", new { keyword = "new"}, new { @class = "nav-link font-weight-bold text-uppercase" })
+                        @Html.ActionLink("New", "ClothingByCategory", "Clothes", new { keyword = "new"}, new { @class = "nav-link font-weight-bold text-uppercase" })
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="~/Clothes/Index">CLOTHING</a>
@@ -28,17 +27,17 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">GENDER</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Men</a>
-                            <a class="dropdown-item" href="#">Women</a>
+                            @Html.ActionLink("Men", "ClothingByCategory", "Clothes", new { keyword = "men" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Women", "ClothingByCategory", "Clothes", new { keyword = "women" }, new { @class = "dropdown-item" })
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CATEGORY</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">T-shirts</a>
-                            <a class="dropdown-item" href="#">Jeans</a>
-                            <a class="dropdown-item" href="#">Hoodies</a>
-                            <a class="dropdown-item" href="#">Jackets</a>
+                            @Html.ActionLink("T-Shirts", "ClothingByCategory", "Clothes", new { keyword = "t-shirt" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Trousers", "ClothingByCategory", "Clothes", new { keyword = "trouser" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Hoodies", "ClothingByCategory", "Clothes", new { keyword = "hoodie" }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Jackets", "ClothingByCategory", "Clothes", new { keyword = "jacket" }, new { @class = "dropdown-item" })
                         </div>
                     </li>
                     <li class="nav-item">
@@ -78,7 +77,7 @@
                 @using (Html.BeginForm("Search", "Clothes", FormMethod.Get))
                 {
                     <div class="d-flex">
-                        <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Enter Keyword" required>
+                        <input class="form-control mr-sm-2" type="text" name="term" placeholder="Enter Keyword" required>
                         <button class="btn btn-danger wrn-btn my-2 my-sm-0" type="submit">Search</button>
                     </div>
                 }

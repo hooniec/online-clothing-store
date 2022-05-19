@@ -22,24 +22,47 @@ namespace OnlineClothesStore.Controllers
             return View(db.Clothes.ToList());
         }
 
-        // Get: Clothes/Search/New
-        public ActionResult Search(string keyword)
+        // GET: Clothes/Search?term
+        public ActionResult Search(string term)
+        {
+            var searchResult = db.Clothes.AsQueryable();
+
+            if (!String.IsNullOrEmpty(term))
+            {
+                var terms = term.Trim().Split(' ');
+
+                foreach (var word in terms)
+                {
+                    searchResult = searchResult
+                   .Where(c => c.Gender.Equals(word)
+                            || c.Category.Contains(word)
+                            || c.Condition.Contains(word)
+                            || c.Color.Contains(word)
+                            || c.Brand.Contains(word)
+                            || c.Location.Contains(word));
+                }
+            }
+
+            ViewBag.Keyword = term;
+            ViewBag.Count = searchResult.Count();
+
+            return View(searchResult);
+        }
+
+        // Get: Clothes/ClothingByCategory?keyword
+        public ActionResult ClothingByCategory(string keyword)
         {
             var list = db.Clothes.AsQueryable();
 
-            switch (keyword)
+            if(keyword != null)
             {
-                case "new":
-                    list = db.Clothes.Where(c => c.Condition == "New");
-                    break;
-            }
-
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                list = list.Where(c => c.Category.StartsWith(keyword));
+                list = list.Where(c => c.Condition.Equals(keyword) 
+                                    || c.Gender.Equals(keyword) 
+                                    || c.Category.Equals(keyword));
             }
 
             ViewBag.Keyword = keyword;
+            ViewBag.Count = list.Count();
 
             return View(list);
         }

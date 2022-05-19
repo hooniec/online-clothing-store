@@ -168,6 +168,7 @@
     <Content Include="Views\Sellers\LoginFail.cshtml" />
     <Content Include="Views\Sellers\AuthenticationFail.cshtml" />
     <Content Include="Views\Clothes\ClothesFail.cshtml" />
+    <Content Include="Views\Clothes\ClothingByCategory.cshtml" />
     <Content Include="Views\Clothes\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

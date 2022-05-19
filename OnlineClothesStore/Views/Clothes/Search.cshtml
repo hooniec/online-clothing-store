@@ -6,7 +6,7 @@
 
 <div class="container-fluid mt-2 mb-5">
     <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center">
-        <span class="font-weight-bold text-uppercase">@ViewBag.Keyword</span>
+        <span class="font-weight-bold text-uppercase">Search for @ViewBag.Keyword / @ViewBag.Count Item(s) Found</span>
         <div> <i class="fa-solid fa-list fa-xl"></i> <i class="fa-solid fa-table-cells fa-xl"></i> </div>
     </div>
     <div class="row">
@@ -19,31 +19,31 @@
                         <div class="d-flex justify-content-between">
                             <span class="font-weight-bold">
                                 @Html.DisplayFor(modelItem => item.Brand)
-                            @Html.DisplayFor(modelItem => item.Color)
-                            @Html.DisplayFor(modelItem => item.Category)
-                        </span>
-                        <span class="font-weight-bold">$@Html.DisplayFor(modelItem => item.Price)</span>
+                                @Html.DisplayFor(modelItem => item.Color)
+                                @Html.DisplayFor(modelItem => item.Category)
+                            </span>
+                            <span class="font-weight-bold">$@Html.DisplayFor(modelItem => item.Price)</span>
+                        </div>
+                        <p class="card-text mb-1 mt-1">
+                            This is @Html.DisplayFor(modelItem => item.Condition) product for
+                            @Html.DisplayFor(modelItem => item.Gender)
+                            (@Html.DisplayFor(modelItem => item.Size) size)
+                            shipping from @Html.DisplayFor(modelItem => item.Location)
+                        </p>
+                        <div class="d-flex align-items-center flex-row">
+                            <img src="https://i.imgur.com/e9VnSng.png" width="20">
+                            <span class="text-success font-weight-bold">2 Years Guarantee</span>
+                        </div>
                     </div>
-                    <p class="card-text mb-1 mt-1">
-                        This is @Html.DisplayFor(modelItem => item.Condition) product for
-                        @Html.DisplayFor(modelItem => item.Gender)
-                        (@Html.DisplayFor(modelItem => item.Size) size)
-                        shipping from @Html.DisplayFor(modelItem => item.Location)
-                    </p>
-                    <div class="d-flex align-items-center flex-row">
-                        <img src="https://i.imgur.com/e9VnSng.png" width="20">
-                        <span class="text-success font-weight-bold">2 Years Guarantee</span>
-                    </div>
-                </div>
-                <hr />
-                <div class="card-body">
-                    <div class="text-right">
-                        <button class="btn btn-outline-dark">Add to wishlist</button>
-                        <button class="btn btn-dark">Add to cart</button>
+                    <hr />
+                    <div class="card-body">
+                        <div class="text-right">
+                            <button class="btn btn-outline-dark">Add to wishlist</button>
+                            <button class="btn btn-dark">Add to cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
     </div>
 </div>
