@@ -46,9 +46,7 @@ namespace OnlineClothesStore.Models
         [Range(0, 9999999999.99, ErrorMessage = "Out of Range - Please check the price again")]
         public Nullable<decimal> Price { get; set; }
 
-        [DataType(DataType.Upload)]
         [Display(Name = "Product Image")]
-        [Required(ErrorMessage = "Please choose file to upload.")]
         [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$", ErrorMessage = "Only Image files allowed.")]
         public string Image { get; set; }
     }

@@ -92,8 +92,8 @@ namespace OnlineClothesStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.Sellers.Add(seller);
-                //db.SaveChanges();
+                db.Sellers.Add(seller);
+                db.SaveChanges();
                 return Content("<script language='javascript' type='text/javascript'>alert('Congratulations, your account has been successfully created.');window.location.href='/Sellers/Login';</script>");
             }
             return View(seller);

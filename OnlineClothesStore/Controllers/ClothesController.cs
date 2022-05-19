@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -19,6 +20,28 @@ namespace OnlineClothesStore.Controllers
         public ActionResult Index()
         {
             return View(db.Clothes.ToList());
+        }
+
+        // Get: Clothes/Search/New
+        public ActionResult Search(string keyword)
+        {
+            var list = db.Clothes.AsQueryable();
+
+            switch (keyword)
+            {
+                case "new":
+                    list = db.Clothes.Where(c => c.Condition == "New");
+                    break;
+            }
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                list = list.Where(c => c.Category.StartsWith(keyword));
+            }
+
+            ViewBag.Keyword = keyword;
+
+            return View(list);
         }
 
         // GET: Clothes/Details/5
@@ -46,31 +69,60 @@ namespace OnlineClothesStore.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "CId,Gender,Category,Condition,Color,Size,Brand,Location,Price,Image")] Cloth cloth, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "CId,Gender,Category,Condition,Color,Size,Brand,Location,Price,Image")] Cloth cloth, HttpPostedFileBase Image)
         {
-            
             if (ModelState.IsValid)
             {
-                if (HttpContext.Request.Files.AllKeys.Any())
+                if (Image != null && Image.ContentLength > 0)
                 {
-                    // Get the uploaded image from the Files collection
-                    var httpPostedFile = HttpContext.Request.Files[0];
+                    try
+                    {
+                        string fileName = DateTime.Now.ToString("yyyymmddhhmmssfff");
+                        string extension = Path.GetExtension(Image.FileName);
+                        string path = Path.Combine(Server.MapPath("~/Images"), fileName + extension);
+                        Cloth newCloth = new Cloth
+                        {
+                            Gender = cloth.Gender,
+                            Category = cloth.Category,
+                            Condition = cloth.Condition,
+                            Color = cloth.Color,
+                            Size = cloth.Size,
+                            Brand = cloth.Brand,
+                            Location = cloth.Location,
+                            Price = cloth.Price,
+                            Image = fileName + extension,
+                        };
 
-                    if (httpPostedFile != null)
-                    { 
-                        // Get the complete file path
-                        var fileSavePath = (HttpContext.Server.MapPath("~/Images") + httpPostedFile.FileName.Substring(httpPostedFile.FileName.LastIndexOf(@"\")));
+                        db.Clothes.Add(newCloth);
+                        db.SaveChanges();
+                        Image.SaveAs(path);
 
-                        // Save the uploaded file to "Images" folder
-                        httpPostedFile.SaveAs(fileSavePath);
+                    }
+                    catch
+                    {
+                        return View("ClothesFail");
                     }
                 }
+                else
+                {
+                    Cloth newCloth = new Cloth
+                    {
+                        Gender = cloth.Gender,
+                        Category = cloth.Category,
+                        Condition = cloth.Condition,
+                        Color = cloth.Color,
+                        Size = cloth.Size,
+                        Brand = cloth.Brand,
+                        Location = cloth.Location,
+                        Price = cloth.Price,
+                        Image = "default.jpg",
+                    };
 
-                db.Clothes.Add(cloth);
-                db.SaveChanges();
+                    db.Clothes.Add(newCloth);
+                    db.SaveChanges();
+                }
                 return Content("<script language='javascript' type='text/javascript'>alert('Your product has been successfully added.');window.location.href='/Clothes/Index';</script>");
             }
-
             return View(cloth);
         }
 

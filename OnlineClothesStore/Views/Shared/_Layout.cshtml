@@ -19,7 +19,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="#">NEW</a>
+                        @*<a class="nav-link font-weight-bold text-uppercase" href="~/Clothes/Search?New">New</a>*@
+                        @Html.ActionLink("New", "Search", "Clothes", new { keyword = "new"}, new { @class = "nav-link font-weight-bold text-uppercase" })
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="~/Clothes/Index">CLOTHING</a>
@@ -74,10 +75,13 @@
                     }
                 </ul>
                 @*Search bar*@
-                <form class="d-flex">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Enter Keyword">
-                    <button class="btn btn-danger wrn-btn my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                @using (Html.BeginForm("Search", "Clothes", FormMethod.Get))
+                {
+                    <div class="d-flex">
+                        <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Enter Keyword" required>
+                        <button class="btn btn-danger wrn-btn my-2 my-sm-0" type="submit">Search</button>
+                    </div>
+                }
             </div>
         </div>
     </nav>

@@ -14,9 +14,10 @@
                 <div class="card border-success">
                     <div class="card-header text-white bg-success">Register My Product</div>
                     <div class="card-body">
-                        @using (Html.BeginForm("Create", "Clothes", FormMethod.Post))
+                        @using (Html.BeginForm("Create", "Clothes", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Image)
 
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "col-md-4 col-form-label text-md-right" })
